@@ -16,7 +16,7 @@
     background-color: transparent;
     color: transparentize($primary, .2);
     &.active {
-      box-shadow: 0 0 0 .4rem $primary;
+      box-shadow: 0 0 0 .2rem $primary;
     }
   }
 

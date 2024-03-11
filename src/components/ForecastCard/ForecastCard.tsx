@@ -4,6 +4,8 @@ import { Card } from '../Card';
 import { CityForm } from 'components';
 import { convertTemperature } from '../../utils';
 import React, { useState } from 'react';
+import { useTypedSelector } from '../../hooks';
+import { weatherDataSelector } from '../../redux/selectors/dataSelectors';
 
 interface CardProps {
   data: any;
@@ -11,8 +13,9 @@ interface CardProps {
   isPending: boolean;
 }
 
-export const ForecastCard = ({ data, onSubmitWeather, isPending }: CardProps) => {
-  const [transformedTemperature, setTransformedTemperature] = useState<string>(data?.main.temp || '');
+export const ForecastCard = ({ onSubmitWeather, isPending }: CardProps) => {
+  const weatherData = useTypedSelector(weatherDataSelector);
+  const [transformedTemperature, setTransformedTemperature] = useState<string | null>(null);
   const today = format(new Date(), DATE_FORMAT_MAIN);
   const toTime = format(new Date(), TIME_FORMAT);
 
@@ -23,6 +26,9 @@ export const ForecastCard = ({ data, onSubmitWeather, isPending }: CardProps) =>
         <div className="row">
           <div className={'col-12'}>
             <div className={'row'}>
+              <div className="col-12">
+                <div className="txt-md">Fill in city</div>
+              </div>
               <div className={'col-12 col-md-5'}>
                 <CityForm onSubmit={onSubmitWeather} />
               </div>
@@ -31,20 +37,28 @@ export const ForecastCard = ({ data, onSubmitWeather, isPending }: CardProps) =>
           </div>
         </div>
         {isPending && <p>Loading...</p>}
-        {data && (
+        {weatherData && (
           <div className="row mt-6">
             <div className={'col-12 col-md-4'}>
-              <p className={'txt txt-md'}>{`${data.name}${data.sys.country ? `, ${data.sys.country}` : ''}`}</p>
+              <p className={'txt txt-md'}>{`${weatherData.name}${
+                weatherData.sys.country ? `, ${weatherData.sys.country}` : ''
+              }`}</p>
               <p className={'txt txt-md'}>{today}</p>
               <p className={'txt txt-md mb-4'}>{toTime}</p>
             </div>
             <div className={'col-12 col-md-4'}>
-              <div className={'flex'}>
+              <div className={'flex-column'}>
                 <div className={'align-items-end gap-4'}>
-                  {data.weather[0].icon && (
-                    <img src={`${WEATHER_PATH}/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].main} />
+                  {weatherData.weather[0].icon && (
+                    <img
+                      src={`${WEATHER_PATH}/img/wn/${weatherData.weather[0].icon}@2x.png`}
+                      alt={weatherData.weather[0].main}
+                    />
                   )}
-                  <div className={'txt-card'}>{convertTemperature(data.main.temp, transformedTemperature)}</div>
+                  <div className={'txt-card'}>
+                    {convertTemperature(weatherData.main.temp, transformedTemperature || KELVIN)}
+                    {transformedTemperature === CELSIUS ? '°C' : transformedTemperature === FAREGHEIT ? '°F' : '°K'}
+                  </div>
                 </div>
                 <div className={'align-items-center'}>
                   <button
@@ -62,34 +76,36 @@ export const ForecastCard = ({ data, onSubmitWeather, isPending }: CardProps) =>
                   <button
                     onClick={handleToggleTemp}
                     value={KELVIN}
-                    className={`btn-icon btn ${transformedTemperature === KELVIN ? 'active' : ''}`}>
+                    className={`btn-icon btn ${
+                      transformedTemperature === KELVIN || !transformedTemperature ? 'active' : ''
+                    }`}>
                     {KELVIN}
                   </button>
                 </div>
               </div>
               <div className={'flex-column mt-8'}>
-                <p className={'txt txt-md'}>{`${data.weather ? `${data.weather[0].main}, ` : ''}${
-                  data.weather ? data.weather[0].description : ''
+                <p className={'txt txt-md'}>{`${weatherData.weather ? `${weatherData.weather[0].main}, ` : ''}${
+                  weatherData.weather ? weatherData.weather[0].description : ''
                 }`}</p>
-                {data.main.temp && <p className={'txt txt-md'}>Temp: {data.main.temp}</p>}
+                {weatherData.main.temp && <p className={'txt txt-md'}>Temp: {weatherData.main.temp}</p>}
               </div>
             </div>
             <div className={'col-12 col-md-4'}>
               <div className={'align-items-center justify-content-between'}>
                 <p className={'txt txt-md'}>Humidity:</p>
-                {data.main.humidity && <p className={'txt txt-md'}>{`${data.main.humidity}%`}</p>}
+                {weatherData.main.humidity && <p className={'txt txt-md'}>{`${weatherData.main.humidity}%`}</p>}
               </div>
               <div className={'align-items-center justify-content-between'}>
                 <p className={'txt txt-md'}>Feels like:</p>
-                <p className={'txt txt-md'}>{data.main.feels_like}</p>
+                <p className={'txt txt-md'}>{weatherData.main.feels_like}</p>
               </div>
               <div className={'align-items-center justify-content-between'}>
                 <p className={'txt txt-md'}>Max:</p>
-                <p className={'txt txt-md'}>{data.main.temp_max}</p>
+                <p className={'txt txt-md'}>{weatherData.main.temp_max}</p>
               </div>
               <div className={'align-items-center justify-content-between'}>
                 <p className={'txt txt-md'}>Min:</p>
-                <p className={'txt txt-md'}>{data.main.temp_min}</p>
+                <p className={'txt txt-md'}>{weatherData.main.temp_min}</p>
               </div>
             </div>
           </div>

@@ -25,9 +25,9 @@ export const dataSlice = createSlice({
     builder.addCase(getWeatherData.pending, (state) => {
       state.isDataPending = true;
     });
-    builder.addCase(getWeatherData.rejected, (state, action) => {
+    builder.addCase(getWeatherData.rejected, (state) => {
       state.isDataPending = false;
-      state.dataError = action.payload;
+      state.dataError = null;
     });
   },
 });

@@ -1,10 +1,9 @@
 .form-field {
   position: relative;
-  border: 3px solid transparentize($primary, .5);
-  border-radius: .8rem;
-  min-height: 4.9rem;
+  min-height: 6.9rem;
   transition: .15s;
   width: 100%;
+  padding-bottom: 2rem;
 
   &-label {
     position: absolute;
@@ -13,12 +12,14 @@
   }
 
   &-input {
+    border: 3px solid transparentize($primary, .5);
+    border-radius: .8rem;
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 0;
+    bottom: 2rem;
     right: 0;
-    border: 0;
+    min-height: 4.9rem;
     font-size: 1.8rem;
     color: $black;
     background-color: transparent;
@@ -28,12 +29,15 @@
     &:hover,
     &:focus {
       outline: none;
+      border-radius: .8rem;
+      border: 2px solid $white;
     }
   }
 
-  &:hover,
-  &:focus {
-    border-radius: .8rem;
-    border: 2px solid $white;
+  .txt-err {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 1.4rem;
   }
 }
