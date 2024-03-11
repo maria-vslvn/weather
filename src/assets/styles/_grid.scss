@@ -1,0 +1,121 @@
+.col-pads {
+  padding: {
+    left: $grid-padding;
+    right: $grid-padding;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  padding: {
+    left: $grid-padding;
+    right: $grid-padding;
+  }
+}
+
+.row {
+  @include flexify($wrap: wrap);
+  margin: {
+    left: -#{$grid-padding};
+    right: -#{$grid-padding};
+  }
+}
+
+[class*='col-'] {
+  @extend .col-pads;
+}
+
+@for $i from 0 to 13 {
+  .col-#{$i} {
+    flex: 1 1 percentage(calc($i / 12));
+    max-width: percentage(calc($i / 12));
+  }
+
+  .col-sm-#{$i},
+  .col-md-#{$i},
+  .col-lg-#{$i} {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@for $i from 0 to 13 {
+  @include Tablet {
+    .col-md-#{$i} {
+      flex: 1 1 percentage(calc($i / 12));
+      max-width: percentage(calc($i / 12));
+    }
+  }
+}
+
+@for $i from 0 to 13 {
+  @include SmallTablet {
+    .col-sm-#{$i} {
+      flex: 1 1 percentage(calc($i / 12));
+      max-width: percentage(calc($i / 12));
+    }
+  }
+}
+
+@for $i from 0 to 101 {
+  .col-#{$i}p {
+    flex: 1 1 percentage(calc($i / 100));
+    max-width: percentage(calc($i / 100));
+  }
+
+  @include SmallTablet {
+    .col-sm-#{$i}p {
+      flex: 1 1 percentage(calc($i / 100));
+      max-width: percentage(calc($i / 100));
+    }
+  }
+
+  @include Tablet {
+    .col-md-#{$i}p {
+      flex: 1 1 percentage(calc($i / 100));
+      max-width: percentage(calc($i / 100));
+    }
+  }
+}
+
+.hidden {
+  display: none !important;
+
+  &-xs {
+    @media (max-width: calc(#{$bp-xs} - 1px)) {
+      display: none !important;
+    }
+  }
+
+  &-sm {
+    @media (min-width: $bp-xs) and (max-width: calc(#{$bp-sm} - 1px)) {
+      display: none !important;
+    }
+  }
+
+  &-md {
+    @media (min-width: $bp-sm) and (max-width: calc(#{$bp-md} - 1px)) {
+      display: none !important;
+    }
+  }
+
+  &-lg {
+    @media (min-width: $bp-md) and (max-width: calc(#{$bp-lg} - 1px)) {
+      display: none !important;
+    }
+  }
+
+  &-desktop {
+    @media (min-width: $bp-lg) {
+      display: none !important;
+    }
+  }
+
+  &-mobile {
+    @media (max-width: calc(#{$bp-lg} - 1px)) {
+      display: none !important;
+    }
+  }
+}
+

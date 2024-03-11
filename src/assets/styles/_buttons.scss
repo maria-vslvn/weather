@@ -1,0 +1,57 @@
+.btn {
+  border-radius: .8rem;
+  min-height: 4rem;
+  padding: .5rem 1rem;
+  color: $white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  border: none;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &-icon {
+    background-color: transparent;
+    color: transparentize($primary, .2);
+    &.active {
+      box-shadow: 0 0 0 .4rem $primary;
+    }
+  }
+
+  &-primary {
+    box-shadow: 0 0 0 .4rem $primary;
+    background-color: $primary;
+    color: transparent;
+  }
+
+  &-secondary {
+    $color: transparentize($primary, .5);
+    background-color: transparentize($white, .9);
+    position: relative;
+    box-shadow: 0 0 0 .3rem $color;
+    @include flexify($align: center);
+    gap: 2rem;
+    color: $black;
+    padding: 1rem 1.5rem;
+    font-size: 2rem;
+    transition: .2s;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(.5rem);
+      z-index: 0;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 .3rem transparentize($primary, .8);
+      color: $white;
+    }
+  }
+}

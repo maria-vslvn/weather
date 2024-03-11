@@ -1,0 +1,67 @@
+@mixin Laptop {
+  @media screen and (min-width: $bp-lg) {
+    @content;
+  }
+}
+
+@mixin Tablet {
+  @media screen and (min-width: $bp-md) {
+    @content;
+  }
+}
+
+@mixin SmallTablet {
+  @media screen and (min-width: $bp-sm) {
+    @content;
+  }
+}
+
+@mixin Phone {
+  @media screen and (max-width: $bp-xs) {
+    @content;
+  }
+}
+
+@mixin SmallPhone {
+  @media screen and (max-width: $bp-xs) {
+    @content;
+  }
+}
+
+@mixin flexify($column: unset, $dirsReverse: unset, $justify: unset, $align: unset, $wrap: unset) {
+  $localDir: '';
+  $localWrap: '';
+
+  display: flex;
+
+  @if $column == true {
+    $localDir: 'column';
+    flex-wrap: nowrap;
+  } @else if($column == false) {
+    $localDir: 'row';
+    flex-wrap: wrap;
+  }
+
+  @if $wrap != 'unset' {
+    flex-wrap: $wrap;
+  }
+
+  @if $dirsReverse == true {
+    flex-direction: #{$localDir}-reverse;
+  } @else {
+    flex-direction: #{$localDir};
+  }
+
+  @if $justify != 'unset' {
+    justify-content: $justify;
+  }
+
+  @if $align != 'unset' {
+    align-items: $align;
+  }
+}
+
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}

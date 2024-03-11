@@ -1,0 +1,31 @@
+// COLORS //
+$white: #fff;
+$black: #0a1231;
+$primary: #fff6d3;
+
+// BREAKPOINTS //
+$bp-xs: 480px;
+$bp-sm: 768px;
+$bp-md: 991px;
+$bp-lg: 1024px;
+$bp-xl: 1440px;
+$container-width: 1180px;
+$grid-padding: 1.5rem;
+$grid-gap-step: 5px;
+
+// HELPERS //
+$flexAligns: (
+        'start': flex-start,
+        'center': center,
+        'end': flex-end,
+        'stretch': stretch,
+        'between': space-between,
+        'around': space-around,
+);
+
+$aligns: (
+        'right': right,
+        'center': center,
+        'left': left,
+        'justify': justify,
+);

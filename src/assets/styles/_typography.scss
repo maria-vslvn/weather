@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cagliostro&display=swap');
+
+$fs-base: 10;
+$fs-base-px: #{$fs-base}px;
+$ff-base: "Cagliostro", sans-serif;
+$fw-r: 400;
+$fw-m: 500;
+$fw-sb: 600;
+$fw-b: 700;
+$fwTypes: (
+        'r': $fw-r,
+        'm': $fw-m,
+        'sb': $fw-sb,
+        'b': $fw-b,
+);
+
+*::selection {
+  background: lighten($primary, 10%);
+  color: $white;
+}
+
+.txt {
+  font: {
+    family: $ff-base;
+    size: 1.6rem;
+  }
+  color: $white;
+
+  &-md {
+    font-size: 3.2rem;
+  }
+  &-card {
+    font-size: 50px;
+  }
+}
